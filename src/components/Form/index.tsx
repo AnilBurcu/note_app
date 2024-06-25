@@ -1,31 +1,70 @@
+import { FormEvent, useRef, useState } from "react";
 import { Button, Col, Form, Row, Stack } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import ReactSelect from "react-select/creatable";
+import { v4 } from "uuid";
+import { Tag } from "../../types";
+import { CreateProps } from "../../pages/Create";
 
-const CustomForm = () => {
+const CustomForm = ({
+  handleSubmit,
+  createTag,
+  availableTags,
+}: CreateProps) => {
+  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const navigate = useNavigate();
+  const titleRef = useRef<HTMLInputElement>(null);
+  const markdownRef = useRef<HTMLTextAreaElement>(null);
+
+  const handleSend = (e: FormEvent) => {
+    e.preventDefault();
+
+    // yeni notu locale kaydeder
+    handleSubmit({
+      title: titleRef.current?.value as string,
+      markdown: markdownRef.current?.value as string,
+      tags: [],
+    });
+  };
   return (
-    <Form className="mt-4">
+    <Form onSubmit={handleSend} className="mt-4">
       <Stack>
         {/* Baslik Alani */}
         <Row>
           <Col>
             <Form.Group>
-              <Form.Label>Baslik</Form.Label>
-              <Form.Control className="shadow" required />
+              <Form.Label>Title</Form.Label>
+              <Form.Control ref={titleRef} className="shadow" required />
             </Form.Group>
           </Col>
           <Col>
             <Form.Group>
-              <Form.Label>Etiketler</Form.Label>
-              <ReactSelect className="text-black shadow" isMulti />
+              <Form.Label>Tags</Form.Label>
+              <ReactSelect
+                // eleman kaldirildiginda calisir
+                onChange={(all_tags) => setSelectedTags(all_tags as Tag[])}
+                // Yeni etiket olusturuldugunda calisir
+                onCreateOption={(text) => {
+                  // etiket objesi olustur ve id ekle
+                  const newTag: Tag = { label: text, value: v4() };
+
+                  // todo locale kaydet
+                  //state'e ekle
+                  setSelectedTags([...selectedTags, newTag]);
+                }}
+                // daha once eklenenleri goruntule
+                value={selectedTags}
+                className="text-black shadow"
+                isMulti
+              />
             </Form.Group>
           </Col>
         </Row>
         {/* Icerik Alani */}
         <Form.Group className="mt-4">
-          <Form.Label>Icerik (markdown destekler)</Form.Label>
+          <Form.Label>Content (Markdown support)</Form.Label>
           <Form.Control
+            ref={markdownRef}
             as="textarea"
             className="shadow"
             style={{ minHeight: "300px", maxHeight: "500px" }}

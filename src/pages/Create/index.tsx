@@ -1,10 +1,19 @@
 import Form from "../../components/Form";
-
-const Create = () => {
+import { NoteData, Tag } from "../../types";
+export type CreateProps = {
+  handleSubmit: (noteData: NoteData) => void;
+  createTag: (tag: Tag) => void;
+  availableTags: Tag[];
+};
+const Create = ({ handleSubmit, createTag, availableTags }) => {
   return (
     <div className="container py-5">
       <h2>Yeni Not Oluştur</h2>
-      <Form />
+      <Form
+        handleSubmit={handleSubmit}
+        createTag={createTag}
+        availableTags={availableTags}
+      />
     </div>
   );
 };
