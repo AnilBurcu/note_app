@@ -1,11 +1,11 @@
-// formdan alinan note verisinin tipi
+// formdan alınan note verisini tipi
 export type NoteData = {
   title: string;
   tags: Tag[];
   markdown: string;
 };
 
-// state'e kaydedilecek note verisinin tipi
+// state'e kaydedilecek note'un tipi
 export type Note = {
   id: string;
 } & NoteData;

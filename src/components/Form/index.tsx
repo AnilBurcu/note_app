@@ -49,11 +49,14 @@ const CustomForm = ({
                   const newTag: Tag = { label: text, value: v4() };
 
                   // todo locale kaydet
+                  createTag(newTag);
                   //state'e ekle
                   setSelectedTags([...selectedTags, newTag]);
                 }}
                 // daha once eklenenleri goruntule
                 value={selectedTags}
+                // daha önce eklenenleri seçenek olarak göster
+                options={availableTags}
                 className="text-black shadow"
                 isMulti
               />

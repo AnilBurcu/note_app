@@ -30,10 +30,16 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Main />} />
+        <Route path="/" element={<Main notes={notes} availableTags={tags} />} />
         <Route
           path="/new"
-          element={<Create handleSubmit={createNote} availableTags={tags} />}
+          element={
+            <Create
+              handleSubmit={createNote}
+              createTag={createTag}
+              availableTags={tags}
+            />
+          }
         />
 
         <Route path="/:id">

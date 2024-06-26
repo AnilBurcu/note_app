@@ -8,7 +8,7 @@ export type CreateProps = {
 const Create = ({ handleSubmit, createTag, availableTags }) => {
   return (
     <div className="container py-5">
-      <h2>Yeni Not Oluştur</h2>
+      <h2>Create Note</h2>
       <Form
         handleSubmit={handleSubmit}
         createTag={createTag}
