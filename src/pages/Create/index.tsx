@@ -16,6 +16,9 @@ const Create = ({ handleSubmit, createTag, availableTags }: CreateProps) => {
         handleSubmit={handleSubmit}
         createTag={createTag}
         availableTags={availableTags}
+        markdown={note.markdown}
+        title={note.title}
+        tags={note.tags}
       />
     </div>
   );

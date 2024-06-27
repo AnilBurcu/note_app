@@ -10,8 +10,11 @@ const CustomForm = ({
   handleSubmit,
   createTag,
   availableTags,
+  markdown = "",
+  title = "",
+  tags = [],
 }: CreateProps) => {
-  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [selectedTags, setSelectedTags] = useState<Tag[]>(tags);
   const navigate = useNavigate();
   const titleRef = useRef<HTMLInputElement>(null);
   const markdownRef = useRef<HTMLTextAreaElement>(null);
@@ -36,7 +39,12 @@ const CustomForm = ({
           <Col>
             <Form.Group>
               <Form.Label>Title</Form.Label>
-              <Form.Control ref={titleRef} className="shadow" required />
+              <Form.Control
+                defaultValue={title}
+                ref={titleRef}
+                className="shadow"
+                required
+              />
             </Form.Group>
           </Col>
           <Col>
@@ -69,6 +77,7 @@ const CustomForm = ({
         <Form.Group className="mt-4">
           <Form.Label>Content (Supports Markdown)</Form.Label>
           <Form.Control
+            defaultValue={markdown}
             ref={markdownRef}
             as="textarea"
             className="shadow"

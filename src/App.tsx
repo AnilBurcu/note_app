@@ -12,18 +12,11 @@ const App = () => {
   const [notes, setNotes] = useLocalStorage<Note[]>("notes", []);
   const [tags, setTags] = useLocalStorage<Tag[]>("tags", []);
 
+  // etiket olusturma
   const createTag = (tag: Tag): void => {
     setTags((prev) => [...prev, tag]);
   };
-  // etiket olusturma
-
   // yeni etiket olsuturma
-
-  // notu kaldir
-  const deleteNote = (id: string) => {
-    setNotes((prev) => prev.filter((n) => n.id !== id));
-  };
-
   const createNote = (noteData: NoteData): void => {
     // formdan gelen veriye id ekle
     const newNote: Note = {
@@ -33,6 +26,25 @@ const App = () => {
     // state'e notu ekle
     setNotes((prev) => [...prev, newNote]);
   };
+  // notu kaldir
+  const deleteNote = (id: string) => {
+    setNotes((prev) => prev.filter((n) => n.id !== id));
+  };
+  // notu guncelle
+  const updateNote = (id: string, updatedData: NoteData) => {
+    const updated = notes.map((note) => {
+      if (note.id === id) {
+        // eger eleman guncellenecek eleman ise guncel verileri yeni diziye ekle
+        return { id, ...updatedData };
+      } else {
+        // degilse notun verilerini yeni diziye ekle
+        return note;
+      }
+    });
+    // state'i guncelle
+    setNotes(updated);
+  };
+
   return (
     <BrowserRouter>
       <Routes>
@@ -50,7 +62,16 @@ const App = () => {
 
         <Route path="/note/:id" element={<Layout notes={notes} />}>
           <Route index element={<Detail deleteNote={deleteNote} />} />
-          <Route path="edit" element={<Edit />} />
+          <Route
+            path="edit"
+            element={
+              <Edit
+                handleSubmit={updateNote}
+                createTag={createTag}
+                availableTags={tags}
+              />
+            }
+          />
         </Route>
       </Routes>
     </BrowserRouter>
