@@ -19,6 +19,11 @@ const App = () => {
 
   // yeni etiket olsuturma
 
+  // notu kaldir
+  const deleteNote = (id: string) => {
+    setNotes((prev) => prev.filter((n) => n.id !== id));
+  };
+
   const createNote = (noteData: NoteData): void => {
     // formdan gelen veriye id ekle
     const newNote: Note = {
@@ -44,7 +49,7 @@ const App = () => {
         />
 
         <Route path="/note/:id" element={<Layout notes={notes} />}>
-          <Route index element={<Detail />} />
+          <Route index element={<Detail deleteNote={deleteNote} />} />
           <Route path="edit" element={<Edit />} />
         </Route>
       </Routes>

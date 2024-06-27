@@ -2,7 +2,11 @@ import { Link, useOutletContext } from "react-router-dom";
 import { Note } from "../../types";
 import { Badge, Button, Col, Row, Stack } from "react-bootstrap";
 import ReactMarkdown from "react-markdown";
-const Detail = () => {
+
+type Props = {
+  deleteNote: (is: string) => void;
+};
+const Detail = ({ deleteNote }: Props) => {
   // kapsayici route'dan outlet bilesenine context propu yardimiyla gonderilen verilere eristik
   const note = useOutletContext<Note>();
 
@@ -23,7 +27,9 @@ const Detail = () => {
               <Button>Edit</Button>
             </Link>
             <Link to="/">
-              <Button variant="danger">Remove</Button>
+              <Button onClick={() => deleteNote(note.id)} variant="danger">
+                Remove
+              </Button>
             </Link>
 
             <Button variant="secondary">Back</Button>
