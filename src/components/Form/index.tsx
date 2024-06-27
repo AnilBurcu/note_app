@@ -67,7 +67,7 @@ const CustomForm = ({
         </Row>
         {/* Icerik Alani */}
         <Form.Group className="mt-4">
-          <Form.Label>Content (Markdown support)</Form.Label>
+          <Form.Label>Content (Supports Markdown)</Form.Label>
           <Form.Control
             ref={markdownRef}
             as="textarea"
