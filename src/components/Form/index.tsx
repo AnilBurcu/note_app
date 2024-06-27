@@ -23,8 +23,10 @@ const CustomForm = ({
     handleSubmit({
       title: titleRef.current?.value as string,
       markdown: markdownRef.current?.value as string,
-      tags: [],
+      tags: selectedTags,
     });
+    // anasayfa yönlendir
+    navigate("/");
   };
   return (
     <Form onSubmit={handleSend} className="mt-4">

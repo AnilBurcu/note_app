@@ -3,6 +3,7 @@ import { Note, Tag } from "../../types";
 import { Link } from "react-router-dom";
 import ReactSelect from "react-select";
 import Card from "../../components/Card";
+import { useState } from "react";
 
 type Props = {
   availableTags: Tag[];
@@ -10,39 +11,65 @@ type Props = {
 };
 
 const Main = ({ availableTags, notes }: Props) => {
+  const [title, setTitle] = useState<string>("");
+  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+
+  /*
+   1) Not başlığı 1.inputla aratılan metni içermelidir. Eğer aranan metin boş ise koşul sağlanır. Aksi takdirde note'un başlığının küçük harfe çevrilmiş  hali aratılan metnin küçük harfe çevrilmiş halini içeriyorsa koşul sağlanır
+   
+   &&
+
+   2) 2.input ile seçilen etiketler noteun içerisindeki etiler ile birebir eşeleşmelidi. Seçilen etiket dizisindeki her etiket için note'a ait etiketler arasında eşleşme kontrol edilir.
+  */
+
+  const filtredNotes = notes.filter(
+    (note) =>
+      note.title.toLowerCase().includes(title.toLowerCase()) &&
+      selectedTags.every((s_tag) =>
+        note.tags.some((noteTag) => noteTag.value == s_tag.value)
+      )
+  );
+
   return (
     <div className="container py-5">
-      {/* Üst Kısım */}
+      {/* ÜST KISIM */}
       <Stack direction="horizontal" className="justify-content-between">
         <h1>Notes</h1>
-        <Link to="/">
+
+        <Link to="/new">
           <Button>Create</Button>
         </Link>
       </Stack>
-      {/* Form Alanı */}
+
+      {/* FORM ALANI */}
       <Form className="mt-4">
         <Row>
           <Col>
             <Form.Group>
               <Form.Label>Search by Title</Form.Label>
-              <Form.Control className="shadow"></Form.Control>
+              <Form.Control
+                onChange={(e) => setTitle(e.target.value)}
+                className="shadow"
+              />
             </Form.Group>
           </Col>
           <Col>
             <Form.Group>
               <Form.Label>Search by Tag</Form.Label>
               <ReactSelect
+                onChange={(tags) => setSelectedTags(tags as Tag[])}
+                options={availableTags}
                 className="text-black"
                 isMulti
-                options={availableTags}
-              ></ReactSelect>
+              />
             </Form.Group>
           </Col>
         </Row>
       </Form>
-      {/* Not Listesi */}
+
+      {/* NOT LİSTESİ */}
       <Row xs={1} sm={2} lg={3} xl={4} className="g-3 mt-4">
-        {notes.map((note) => (
+        {filtredNotes.map((note) => (
           <Col>
             <Card note={note} key={note.id} />
           </Col>

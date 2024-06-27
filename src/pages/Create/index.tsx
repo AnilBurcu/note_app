@@ -1,11 +1,14 @@
 import Form from "../../components/Form";
 import { NoteData, Tag } from "../../types";
+
 export type CreateProps = {
   handleSubmit: (noteData: NoteData) => void;
   createTag: (tag: Tag) => void;
   availableTags: Tag[];
-};
-const Create = ({ handleSubmit, createTag, availableTags }) => {
+} & Partial<NoteData>;
+// partial generic tip olarak gönderidğimiz tipin bütün property yani özelliklerini opsiyonel yapar
+
+const Create = ({ handleSubmit, createTag, availableTags }: CreateProps) => {
   return (
     <div className="container py-5">
       <h2>Create Note</h2>

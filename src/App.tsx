@@ -6,6 +6,7 @@ import Create from "./pages/Create";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { Note, NoteData, Tag } from "./types";
 import { v4 } from "uuid";
+import Layout from "./components/Layout";
 
 const App = () => {
   const [notes, setNotes] = useLocalStorage<Note[]>("notes", []);
@@ -42,7 +43,7 @@ const App = () => {
           }
         />
 
-        <Route path="/:id">
+        <Route path="/note/:id" element={<Layout notes={notes} />}>
           <Route index element={<Detail />} />
           <Route path="edit" element={<Edit />} />
         </Route>

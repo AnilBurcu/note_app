@@ -9,6 +9,8 @@ type Props = {
 
 const NoteCard = ({ note }: Props) => {
   const navigate = useNavigate();
+  console.log("Note:", note);
+  console.log("Tags:", note.tags);
 
   return (
     <Card
@@ -27,8 +29,10 @@ const NoteCard = ({ note }: Props) => {
             className="justify-content-center"
             gap={2}
           >
-            {note.tags.map((tag) => (
-              <Badge>{tag.label}</Badge>
+            {note.tags?.map((tag) => (
+              <Badge key={tag.value} bg="primary">
+                {tag.label}
+              </Badge>
             ))}
           </Stack>
         </Stack>
