@@ -32,7 +32,9 @@ const Detail = ({ deleteNote }: Props) => {
               </Button>
             </Link>
 
-            <Button variant="secondary">Back</Button>
+            <Link to="/">
+              <Button variant="secondary">Back</Button>
+            </Link>
           </Stack>
         </Col>
       </Row>
