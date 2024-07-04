@@ -91,13 +91,13 @@ const CustomForm = ({
           className="justify-content-end mt-5"
           gap={4}
         >
-          <Button type="submit">Kaydet</Button>
+          <Button type="submit">Save</Button>
           <Button
             onClick={() => navigate(-1)}
             type="button"
             variant="secondary"
           >
-            Geri
+            Back
           </Button>
         </Stack>
       </Stack>

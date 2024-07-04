@@ -1,11 +1,12 @@
-# Every
+<h1>Note App<h1>
 
-- dizideki bütün elemanalar koşulu sağlıyor mu diye kontrol eder
-- hepsi koşulu sağlıyorsa true
-- aksi tadirede false döndürür
+I created a Note app with CRUD algorithm which is used TS and Tailwind for styling.
 
-# Some
+Website:
+Source Code & More : https://github.com/AnilBurcu/note_app
 
-- dizideki en az bir eleman koşulu sağlıyor mu diye kontrol eder
-- 1 tanesi bile koşulu sağlıyor true
-- hiçbiri sağlamıyorsa false döndürür
+<h2>TypeScript<h2>
+<h2><h2>
+<h2> Screen <h2>
+
+![](Note.gif)
